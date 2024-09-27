@@ -23,7 +23,10 @@ const storage = multer.diskStorage({
 
 app.use(cors());
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 4 * 1024 * 1024 }
+ });
 
 app.get('/', function (req, res) {
     res.send('Hello world!');
