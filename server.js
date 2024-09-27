@@ -36,17 +36,7 @@ app.get('/', function (req, res) {
 app.post('/upload', upload.single('file'), (req, res) => {
     console.log(`Received file upload request: ${req.file ? req.file.originalname : 'No file uploaded'}`);
     if (!req.file) {
-        if (res.statusCode === 400) {
-            return res.status(400).send('No file uploaded.');
-        } else if (res.statusCode === 413) {
-            return res.status(413).send('File too large.');
-        } else if (res.statusCode === 415) {
-            return res.status(415).send('Unsupported file type.');
-        } else if (res.statusCode === 422) {
-            return res.status(422).send('Invalid file format.');
-        } else if (res.statusCode === 500) {
-            return res.status(500).send('Internal server error.');
-        }
+        return res.status(400).send('No file uploaded.');
     }
     res.status(200).send(`File uploaded: ${req.file.originalname}`);
 });
