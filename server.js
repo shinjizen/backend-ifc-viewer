@@ -36,14 +36,13 @@ app.get('/', function (req, res) {
 app.post('/upload', upload.single('file'), (req, res) => {
     console.log(`Received file upload request: ${req.file ? req.file.originalname : 'No file uploaded'}`);
     if (!req.file) {
-        return res.status(400).send('No file uploaded.');
+        return res.status(400).json({ error: 'No file uploaded.' });
     }
     try {
-        res.status(200).send(`File uploaded: ${req.file.originalname}`);
+        res.status(200).json({ message: `File uploaded: ${req.file.originalname}` });
     } catch (err) {
-        res.status(500).send('Error reading file: ' + err.message);
+        res.status(500).json({ error: 'Error reading file: ' + err.message });
     }
-    
 });
 
 // GET: Url path for get file by filename
