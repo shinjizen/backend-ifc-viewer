@@ -25,10 +25,6 @@ app.use(cors());
 
 const upload = multer({ storage: storage });
 
-app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-});
-
 app.get('/', function (req, res) {
     res.send('Hello world!');
 });
@@ -54,7 +50,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 // GET: Url path for get file by filename
 app.get('/get/ifc/:filename', async (req, res) => {
-    const fileName = req.params
+    const fileName = req.params.filename
     try {
         const fileData = await getFile(fileName);
         res.send(fileData);
@@ -62,3 +58,5 @@ app.get('/get/ifc/:filename', async (req, res) => {
         res.status(500).send('Error reading file: ' + err.message);
     }
 });
+
+export default app;
